@@ -1,0 +1,129 @@
+﻿<syncfusion:ChromelessWindow
+    x:Class="PulsingTile_Getting_Started.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PulsingTile_Getting_Started"
+    xmlns:skinmanager="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    x:Name="window"
+    Title="Pulsing Tile Demo"
+    MinWidth="600"
+    MinHeight="500"
+    ResizeMode="NoResize"
+    MaxWidth="700"
+    MaxHeight="600"
+    skinmanager:SfSkinManager.VisualStyle="{Binding ElementName=comboVisualStyle, Path=SelectedValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+    Icon="App.ico"
+    IconAlignment="Left"
+    TitleTextAlignment="Left"
+    WindowStartupLocation="CenterScreen">
+    <syncfusion:ChromelessWindow.DataContext>
+        <local:ViewModel />
+    </syncfusion:ChromelessWindow.DataContext>
+    <syncfusion:ChromelessWindow.Resources>
+        <ObjectDataProvider
+            x:Key="Themes"
+            MethodName="GetValues"
+            ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="skinmanager:VisualStyles" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </syncfusion:ChromelessWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <SolidColorBrush x:Key="accentBrush">#FF1196CD</SolidColorBrush>
+        </Grid.Resources>
+        <Grid
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="5" Text="Header"  FontWeight="SemiBold"/>
+            <TextBox
+                x:Name="header"
+                Grid.Row="1"
+                Width="260"
+                Margin="5"
+                Text="Music" />
+            <TextBlock
+                Grid.Row="2"
+                Margin="5"
+                Text="Title" FontWeight="SemiBold" />
+            <TextBox
+                x:Name="title"
+                Grid.Row="3"
+                Width="260"
+                Margin="5"
+                Text="Now Palying - Song Name" />
+            <TextBlock
+                Grid.Row="4"
+                Margin="5"
+                Text="PulseDuration" FontWeight="SemiBold" />
+            <ComboBox
+                x:Name="pulseDuration"
+                Grid.Row="5"
+                Margin="5"
+                ItemsSource="{Binding PulseDuration}"
+                SelectedIndex="0" />
+            <TextBlock
+                Grid.Row="6"
+                Width="250"
+                Margin="5"
+                Text="Pulse Scale" FontWeight="SemiBold" />
+            <ComboBox
+                x:Name="pulseScale"
+                Grid.Row="7"
+                Margin="5"
+                ItemsSource="{Binding PulseScale}"
+                SelectedIndex="1" />
+            <TextBlock
+                Grid.Row="8"
+                Margin="5"
+                Text="Themes" FontWeight="SemiBold" />
+            <ComboBox
+                x:Name="comboVisualStyle"
+                Grid.Row="9"
+                Width="260"
+                Margin="5"
+                ItemsSource="{Binding Source={StaticResource Themes}}"
+                SelectedIndex="18" />
+        </Grid>
+        <syncfusion:SfPulsingTile
+            x:Name="pulsingTile"
+            Title="{Binding ElementName=title, Path=Text}"
+            Width="250"
+            Height="250"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BorderBrush="DarkGray"
+            Foreground="White"
+            Header="{Binding ElementName=header, Path=Text}"
+            PulseDuration="{Binding ElementName=pulseDuration, Path=SelectedItem, Mode=TwoWay}"
+            PulseScale="{Binding ElementName=pulseScale, Path=SelectedItem, Mode=TwoWay}"
+            RadiusX="2"
+            RadiusY="2"
+            ScaleDepth="0.9"
+            TilePressDuration="00:00:02">
+            <Image HorizontalAlignment="Center" Source="/Assets/MusicTile.png" />
+        </syncfusion:SfPulsingTile>
+
+    </Grid>
+</syncfusion:ChromelessWindow>
+
